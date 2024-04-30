@@ -6,7 +6,7 @@ all_projects = "/home/zhoushiqi/workplace/apr/df4/all_project"
 ori_dir = f"/home/zhoushiqi/workplace/apr/df4/{version}/framework/projects"
 dest_dir = "/home/zhoushiqi/workplace/apr/data/df4_process_data"
 def call_extract(file_path, search_index):
-    s = subprocess.run(['java', '-jar', '/home/zhoushiqi/workplace/apr/src/code/test.jar', file_path, str(search_index)], capture_output=True, text=True)
+    s = subprocess.run(['java', '-jar', '/home/zhoushiqi/workplace/apr/src/code/extract.jar', file_path, str(search_index)], capture_output=True, text=True)
     result = {}
     result['type'] = re.findall("type:(\w+?)\n", s.stdout)[0]
     if re.findall("range:(.+?)\n", s.stdout) != []:
