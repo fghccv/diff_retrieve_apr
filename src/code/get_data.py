@@ -1,7 +1,7 @@
 import re, os, tqdm, json
 import subprocess
 from collections import defaultdict
-version = "defects4j-2.0.1"
+version = "defects4j-1.2.0"
 all_projects = "/home/zhoushiqi/workplace/apr/df4/all_project"
 ori_dir = f"/home/zhoushiqi/workplace/apr/df4/{version}/framework/projects"
 dest_dir = "/home/zhoushiqi/workplace/apr/data/df4_process_data"
@@ -13,6 +13,28 @@ def call_extract(file_path, search_index):
         result['range'] = re.findall("range:(.+?)\n", s.stdout)[0]
     if re.findall("javadoc:@@@begin@@@((.|\n)*)@@@end@@@", s.stdout) != []:
         result['javadoc'] = re.findall("javadoc:@@@begin@@@((.|\n)*)@@@end@@@", s.stdout)[0][0]
+    if re.findall("name:(.+?)\n", s.stdout) != []:
+        result['name'] = re.findall("name:(.+?)\n", s.stdout)[0]
+    return result
+def call_external(file_path, method_name):
+    s = subprocess.run(['java', '-jar', '/home/zhoushiqi/workplace/apr/src/code/external.jar', file_path, method_name], capture_output=True, text=True)
+    s = s.stdout.split('\n')
+    identifiers = []
+    if s[0] == 'External References:':
+        identifiers = list(set(s[1:]))
+        identifiers.remove('')
+    else:
+        identifiers = []
+
+    return identifiers
+def call_extract_func(file_path, method_name):
+    s = subprocess.run(['java', '-jar', '/home/zhoushiqi/workplace/apr/src/code/func_extract.jar', file_path, method_name], capture_output=True, text=True)
+    s = s.stdout
+    result = {}
+    if re.findall("Javadoc:((.|\n)*)", s) != []:
+        result['javadoc'] = re.findall("Javadoc:((.|\n)*)", s)[0][0]
+    if re.findall("Function Body:((.|\n)+)Javadoc:", s) != []:
+        result['body'] = re.findall("Function Body:((.|\n)+)Javadoc:", s)[0][0]
     return result
 def extract_func(file_path, search_index):
     with open(file_path, encoding="iso-8859-1") as f:
@@ -21,12 +43,14 @@ def extract_func(file_path, search_index):
     if result['type'] == 'File':
         start, end = 1, len(text)
         doc = ""
+        name = ''
     else:
         start, end = result['range'].split('-')
         doc = result['javadoc']
-    return text[int(start)-1: int(end)], [int(start)-1, int(end)], doc, result['type']
+        name = result['name']
+    return text[int(start)-1: int(end)], (int(start)-1, int(end)), doc, result['type'], name
 def repair(func_lines, patchs):
-    for patch_lines, tags, gap, _, _ in patchs:
+    for patch_lines, tags, gap, _, _, _, _ in patchs:
         for i in range(len(func_lines)):
             if func_lines[i:i+gap] == tags:
                 p = i
@@ -37,6 +61,20 @@ def repair(func_lines, patchs):
                 func_lines.insert(p, patch_line[1:])
             elif patch_line.startswith("+") :
                 del func_lines[p]
+                continue
+            p += 1
+    return '\n'.join(func_lines)
+def add_erro(func_lines, patchs):
+    for patch_lines, tags, gap, _, _, _ in patchs:
+        for i in range(len(func_lines)):
+            if func_lines[i:i+gap] == tags:
+                p = i
+                break
+        for patch_line in patch_lines:
+            if patch_line.startswith("@@"): continue
+            if patch_line.startswith("+"):
+                func_lines[p] += '//There might be a bug near this line of code (including this line).'
+            elif patch_line.startswith("-"):
                 continue
             p += 1
     return '\n'.join(func_lines)
@@ -100,11 +138,14 @@ def get_info(ori_dir, df4_version="defects4j-1.2.0"):
                     with open(new_trigger_path, 'w') as f, open(test_path, encoding="iso-8859-1") as f2:
                         lines = f2.read().split('\n')
                         f.write(str(erro_line_index) + ' ' + lines[erro_line_index-1].strip())
-                        info['trigger_line'] = lines[erro_line_index-1].strip()
+                        info['trigger_line'] = lines[erro_line_index-2:erro_line_index]#erro_line_index-1是错误行
                     break
             with open(new_all_testcase_path, 'w') as f:
                 try:
                     test_func = '\n'.join(extract_func(test_path, erro_line_index)[0])
+                    if 'trigger_line' in info:
+                        ii = test_func.index('\n'.join(info['trigger_line'])) + len('\n'.join(info['trigger_line'][:2]))
+                        test_func = test_func[:ii] + "//The program encountered an error here" + test_func[ii:]
                     f.write(test_func)
                     info['test_func'] = test_func
                 except:
@@ -143,6 +184,7 @@ def get_info(ori_dir, df4_version="defects4j-1.2.0"):
                         diff_ls = []
                         one_erro['fixs'] = []
                         one_erro['src_code'] = []
+                        one_erro['patchs'] = []
                         for i in range(len(diff_is) - 1):
                             di = diff_is[i]
                             r = re.findall("@@\s[+|-]\d+,\d+\s[+|-]*(\d+),(\d+)\s@@", diff_lines[di])
@@ -179,8 +221,10 @@ def get_info(ori_dir, df4_version="defects4j-1.2.0"):
                         for (line_index, gap), diff_l in zip(line_indexs, diff_ls):
                             tags = src_lines[line_index-1:line_index+gap-1]
                             starts, ends = [], []
-                            _, rg1, doc1, ty1 = extract_func(src_path, line_index)
-                            _, rg2, doc2, ty2 = extract_func(src_path, line_index+gap-1)
+                            _, rg1, doc1, ty1, name1 = extract_func(src_path, line_index)
+                            _, rg2, doc2, ty2, name2 = extract_func(src_path, line_index+gap-1)
+                            identifiers1 = call_external(src_path, name1)
+                            identifiers2 = call_external(src_path, name2)
                             for start, end in [rg1, rg2]:
                                 starts.append(start)
                                 ends.append(end)
@@ -190,31 +234,51 @@ def get_info(ori_dir, df4_version="defects4j-1.2.0"):
                                 ty = 'class'
                             else:
                                 ty = 'Method'
-                            func2diffs[(min(starts), max(ends))].append([diff_l, tags, gap, ty, list(set([doc1, doc2]))])
+                            identifiers = list(set(identifiers1+identifiers2))
+                            if name1 in identifiers:
+                                identifiers.remove(name1)
+                            if name2 in identifiers:
+                                identifiers.remove(name2)
+                            func2diffs[(min(starts), max(ends))].append([diff_l, tags, gap, [rg1, rg2], ty, list(set([doc1, doc2])), identifiers])
                         one_erro['if_one_function'] = []
                         one_erro['docs'] = []
+                        one_erro['externals'] = []
+                        one_erro['relevent_method'] = []
                         for func_i in func2diffs:
                             all_docs = []
                             all_ty = []
+                            all_rgs = []
+                            all_externals = []
                             for x in func2diffs[func_i]:
-                                all_docs += x[-1]
-                                all_ty.append(x[-2])
+                                all_externals += x[-1]
+                                all_docs += x[-2]
+                                all_ty.append(x[-3])
+                                all_rgs += x[-4]
+                            one_relevent_method = []
+                            for ide in all_externals:
+                                cf = call_extract_func(src_path, ide)
+                                if cf != {}:
+                                    one_relevent_method.append(cf)
+                            one_erro['relevent_method'].append(one_relevent_method)
+                            one_erro['externals'].append(all_externals)
                             one_erro['docs'].append(all_docs)
-                            one_erro['if_one_function'].append(all(ty=='Method' for ty in all_ty))
+                            one_erro['if_one_function'].append(all(ty=='Method' for ty in all_ty) and len(set(all_rgs))==1)
                             final_func = '\n'.join(src_lines[func_i[0]:func_i[1]])
+                            # final_func = add_erro(src_lines[func_i[0]:func_i[1]], func2diffs[func_i])
                             f.write(final_func)
                             one_erro['src_code'].append(final_func)
                             f.write("\n################ repair func ##################\n")
                             final_repair = repair(src_lines[func_i[0]:func_i[1]], func2diffs[func_i])
+                            one_erro['patchs'].append(func2diffs[func_i])
                             f.write(final_repair)
                             f.write("\n################ next func ##################\n")
-                            one_erro['fixs'].append([final_func, final_repair])
+                            one_erro['fixs'].append(final_repair)
                     except:
                         info['extract_src_erro'] = True
                         print('erro extact func:%s %s'%(project, bug_id))
                 info['erro_repairs'].append(one_erro)  
             infos.append(info)
-    with open(f"/home/zhoushiqi/workplace/apr/data/df4_process_data/all_info_{df4_version}.jsonl", 'w') as f:
+    with open(f"/home/zhoushiqi/workplace/apr/data/df4_process_data/all_info_{df4_version}_external.jsonl", 'w') as f:
         for info in infos:
             f.write(json.dumps(info) + '\n')
 

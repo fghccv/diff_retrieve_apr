@@ -1,0 +1,161 @@
+### Example 1
+### Program document:
+```text
+Returns the maximum value in the array.
+ 
+<p>This method iterates through an array of integers, comparing each
+element to find the maximum value. If the array is empty, it throws an
+IllegalArgumentException. The method assumes that the array contains at least
+one integer element.</p>
+ 
+<p>Example Usage:</p>
+<pre>
+    int[] sample1 = {1, 3, 2, 5};
+    int max1 = findMax(sample1); // returns 5
+
+    int[] sample2 = {-3, -1, -7, -2};
+    int max2 = findMax(sample2); // returns -1
+</pre>
+
+@param numbers The array of integers.
+@return The maximum integer in the array.
+@throws IllegalArgumentException If the array is empty.
+```
+### Buggy code:
+```java
+public static int findMax(int[] numbers) {
+    if (numbers.length == 0) {
+        throw new IllegalArgumentException("Array should not be empty");
+    }
+    int max = numbers[0];
+    // Intentionally buggy line below
+    for (int i = 1; i < numbers.length; i++) {
+        if (numbers[i] < max) {
+            max = numbers[i];
+        }
+    }
+    return max;
+}
+```
+### Failed test:
+```java
+@Test
+public void testFindMax() {
+    int[] numbers = {1, 3, 2, 5};
+    int result = findMax(numbers);
+    Assert.assertEquals(5, result); // The program encountered an error here
+
+    int[] numbers2 = {-3, -1, -7, -2};
+    result = findMax(numbers2);
+    Assert.assertEquals(-1, result);
+
+    int[] emptyArray = {};
+    try {
+        findMax(emptyArray);
+        Assert.fail("Expected IllegalArgumentException for empty array");
+    } catch (IllegalArgumentException e) {
+        // Expected exception
+    }
+}
+```
+### Test info:
+```text
+java.lang.AssertionError: expected:<5> but was:<2>
+```
+### Variable explanation
+Describe the functions of the following variables.
+variables:findMax,numbers,max
+explanation:
+findMax: a method iterates through an array of integers, comparing each element to find the maximum value.
+numbers: array of integers, input of method findMax.
+max: the largest number in the numbers array.
+
+### Refined code
+```java
+public static int findMax(int[] numbers) {
+    if (numbers.length == 0) {
+        throw new IllegalArgumentException("Array should not be empty");
+    }
+    int max = numbers[0];
+    for (int i = 1; i < numbers.length; i++) {
+        if (numbers[i] > max) {
+            max = numbers[i];
+        }
+    }
+    return max;
+}
+```
+
+### Example 2
+### Program document:
+```text
+Calculates the factorial of a non-negative integer.
+ 
+<p>This method computes the factorial of a given non-negative integer
+using a recursive approach. The factorial of a non-negative integer n is
+the product of all positive integers less than or equal to n. If the input
+is a negative integer, the method throws an IllegalArgumentException.</p>
+ 
+<p>Example Usage:</p>
+<pre>
+    int fact1 = factorial(5); // returns 120
+    int fact2 = factorial(0); // returns 0
+</pre>
+
+@param n The non-negative integer for which the factorial is to be computed.
+@return The factorial of the given integer.
+@throws IllegalArgumentException If the input is a negative integer.
+```
+### Buggy code:
+```java
+public static int factorial(int n) {
+    if (n < 0) {
+        throw new IllegalArgumentException("Number must be non-negative");
+    }
+    // Intentionally buggy base case below
+    if (n == 0) {
+        return 1;
+    }
+    return n * factorial(n);
+}
+```
+### Failed test:
+```java
+@Test
+public void testFactorial() {
+    int result = factorial(5);
+    Assert.assertEquals(120, result); // The program encountered an error here
+
+    result = factorial(0);
+    Assert.assertEquals(1, result);
+
+    try {
+        factorial(-1);
+        Assert.fail("Expected IllegalArgumentException for negative number");
+    } catch (IllegalArgumentException e) {
+        // Expected exception
+    }
+}
+```
+### Test info:
+```text
+java.lang.StackOverflowError
+```
+### Variable explanation
+Describe the functions of the following variables.
+variables:factorial,n
+explanation:
+factorial: a method computes the factorial of a given non-negative integer using a recursive approach.
+n: the non-negative integer for which the factorial is to be computed.
+### Refined code
+```java
+public static int factorial(int n) {
+    if (n < 0) {
+        throw new IllegalArgumentException("Number must be non-negative");
+    }
+    if (n == 0) {
+        return 1;
+    }
+    return n * factorial(n - 1);
+}
+```
