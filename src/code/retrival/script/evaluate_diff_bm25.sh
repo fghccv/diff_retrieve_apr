@@ -14,10 +14,10 @@
 conda activate apr
 model=/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct
 work_dir=/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval
-pname=baseline_1.2_diff_bm25_k1
+pname=baseline_1.2_diff_bm25_k1_add_report
 info_path=/home/zhoushiqi/workplace/apr/data/df4_process_data/one_function/1.2.jsonl
-result_path=/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/baseline_1.2_random_N200_T1_result.jsonl
-process_path=/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/baseline_1.2_random_N200_T1_process.jsonl
+result_path=/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/baseline_1.2_random_add_report_N200_T1_result.jsonl
+process_path=/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/baseline_1.2_random_add_report_N200_T1_process.jsonl
 codebase_path=/home/zhoushiqi/workplace/apr/data/megadiff-single-function/process_filtered2048.jsonl
 num_example=1
 num_ticket=3
@@ -25,7 +25,7 @@ num_voter=100
 N=100
 num_per_iter=10
 T=1
-
+uniform_weight=0
 pname=${pname}_N${N}_T${T}
 dest_dir=$work_dir/$pname
 rm -rf $dest_dir
@@ -41,7 +41,7 @@ for ((i = 0; i < $gpu_num; i++)); do
       --gpu_index ${i}  --num_gpus 1\
       --dest_path ${dest_dir}/${i}.jsonl --N $N --num_per_iter $num_per_iter --temperature $T\
       --codebase_path ${codebase_path} --num_example ${num_example} --num_ticket ${num_ticket}\
-      --info_path $info_path --result_path $result_path --process_path $process_path --num_voter $num_voter
+      --info_path $info_path --result_path $result_path --process_path $process_path --num_voter $num_voter --uniform_weight $uniform_weight
   ) &
   if (($index % $gpu_num == 0)); then wait; fi
 done

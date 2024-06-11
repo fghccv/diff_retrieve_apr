@@ -27,6 +27,7 @@ if __name__ == "__main__":
     parser.add_argument('--num_example', type=int, default=1, help="")
     parser.add_argument('--num_ticket', type=int, default=3, help="")
     parser.add_argument('--num_voter', type=int, default=10, help="")
+    parser.add_argument('--uniform_weight', type=int, default=10, help="")
     # parser.add_argument('--max_len', type=int, default=512, help="")
     args = parser.parse_args()
     argsdict = vars(args)
@@ -38,7 +39,7 @@ model_id = args.model_id
 result_path = args.result_path
 info_path = args.info_path
 process_path = args.process_path
-diff_datas = pre_process_diff(result_path, info_path, process_path, args.num_voter)
+diff_datas = pre_process_diff(result_path, info_path, process_path, args.num_voter, uniform_weight=args.uniform_weight)
 gap = len(diff_datas)//8 + 1
 diff_datas = diff_datas[args.gpu_index*gap:(args.gpu_index+1)*gap]
 print(len(diff_datas))
@@ -57,18 +58,34 @@ else:
     results = []
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 llm = LLM(seed=42,model=model_id, tensor_parallel_size=args.num_gpus,trust_remote_code=True)
-for i, data in tqdm.tqdm(enumerate(diff_datas)):
-    if f"{data['project']}_{data['bug_id']}" in exsists:
+ori_data = utils.read_jsonl(args.info_path)
+ori_data = {f"{d['project']}_{d['bug_id']}":d for d in ori_data}
+for i, diff_data in tqdm.tqdm(enumerate(diff_datas)):
+    if f"{diff_data['project']}_{diff_data['bug_id']}" in exsists:
         continue
-    buggy_code = data['buggy_code']
+    data = ori_data[f"{diff_data['project']}_{diff_data['bug_id']}"]
+    local_dir_path = data['local_dir_path']
+    erro_func = data['test_func']
+    erro_repair = data['erro_repairs'][0]
+    buggy_code = erro_repair['src_code'][0]
+    repair_code = erro_repair['fixs'][0]
+    document = erro_repair['docs'][0][0]
+    with open(local_dir_path+'/erro.java') as f:
+        erro_messege = f.read()
+    erro_messege = erro_messege.split('\n')[1]
     prompt = "As an debugger, you should refine the buggy program.\n"
-    examples = data['examples']
+    examples = diff_data['examples']
     for j, example in enumerate(examples):
+        prompt += f"### Example {j+1}\n"
         b, f = example['buggy_function'], example['fixed_function']
         b = b.replace('\t', '    ')
         f = f.replace('\t', '    ')
         prompt += f"### Buggy code:\n```java\n{b}\n```\n"
         prompt += f"### Refined code:\n```java\n{f}\n```\n"
+    prompt += f"### Example {len(examples)+1}\n"
+    prompt += f"### Program document:\n```text\n{document}\n```\n"
+    prompt += f"### Failed test:\n```java\n{erro_func}\n```\n"
+    prompt += f"### Test info:\n```text\n{erro_messege}\n```\n"
     prompt += f"### Buggy code:\n```java\n{buggy_code}\n```\n"
     prompt += "### Refined code:\n"
     messages = [
@@ -76,7 +93,7 @@ for i, data in tqdm.tqdm(enumerate(diff_datas)):
     ]
     inputs = tokenizer.apply_chat_template(messages, tokenize=False)
     input_len = len(tokenizer.encode(prompt))
-    if input_len > 10240:
+    if input_len > 12000:
         results.append({"project":data['project'],'bug_id':data['bug_id'],"prompt":prompt, "result":['']*args.N})
         all_error += 1
         continue

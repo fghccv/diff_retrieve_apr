@@ -7,33 +7,40 @@ from collections import defaultdict
 import re
 import math
     
-def pre_process_diff(result_path, info_path, process_path, num_voter, context_window=3):
+def pre_process_diff(result_path, info_path, process_path, num_voter, context_window=3, uniform_weight=True):
     plausible_ids = []
     x = utils.read_jsonl(result_path)
     id2weight = {}
-    l = 0
     for xx in x:
         results = xx['result'][:num_voter]
-        if 'Failing tests: 0\n' in results:
+        if 'other test Failing tests: 0\n' in results:
             plausible_ids.append(f"{xx['project']}_{xx['bug_id']}")
         else:
             weights = []
             avg = []
-            for r in results:
-                if r == "Compile Failing" or " ":
-                    weights.append('x')
-                else:
-                    n = re.findall("Failing tests: (\d+)\n", r)
-                    assert len(n) == 1, r
-                    n = n[0]
-                    weights.append(1- int(n)/10)
-                    avg.append(1- int(n)/10)
-                if avg == []:
-                    bias = 0
-                else:
-                    bias = sum(avg)/len(avg)
-                weights = [w if w!='x' else bias for w in weights]
-                l =len(weights)
+            for i,r in enumerate(results):
+                if "other" in r:
+                    weights.append(1.5)
+                if "Repetite Failed":
+                    weights.append(0)
+                if r == "Compile Failing" or r == "trigger test" or r == "Time out":
+                    weights.append(0.5)
+                if "trigger testFailing" in r:
+                    weights.append(1)
+                # else:
+                #     n = re.findall("Failing tests: (\d+)\n", r)
+                #     assert len(n) == 1, r
+                #     n = n[0]
+                #     if n==1:
+                #         weights.append(1)
+                #     else:
+                #         weights.append(1.5)
+                #     avg.append(int(n))
+            # if avg == []:
+            #     bias = 0
+            # else:
+            #     bias = (-1*math.log(sum(avg)/len(avg)*1.5)+20)/20
+            # weights = [w if w!='x' else bias for w in weights]
             id2weight[f"{xx['project']}_{xx['bug_id']}"] = weights
     buggy = utils.read_jsonl(info_path)
     answer = utils.read_jsonl(process_path)[0]
@@ -49,8 +56,12 @@ def pre_process_diff(result_path, info_path, process_path, num_voter, context_wi
         new_data['buggy_code'] = buggy_code
         new_data['fixed'] = [a.strip() for a in answer[bug_id]][:num_voter]
         new_data['diffs'] = [utils._process({'buggy_function':buggy_code, 'fixed_function':a}, context_window) for a in new_data['fixed']]
-        # new_data['weights'] = id2weight[bug_id]
-        new_data['weights'] = [1] * l
+        if uniform_weight:
+            new_data['weights'] = [1] * len(new_data['fixed'])
+        else:
+            new_data['weights'] = id2weight[bug_id]
+        new_data['weights'] = [0 if diff==buggy_code else new_data['weights'][i] for i, diff in enumerate(new_data['fixed'])]
+        # print(new_data['weights'])
         diff_datas.append(new_data)
     return diff_datas
     
@@ -64,7 +75,7 @@ def build_model(codebase_path, model_name="/home/zhoushiqi/workplace/model/deeps
     bm25_model = bm25(tokenizer, diffs, tokenized_diffs)
     return bm25_model, codebase
 #vector codebase
-def build_model_vec(codebase_path, model_name="/home/zhoushiqi/workplace/model/codet5p-110m-embedding", vecter_path="/home/zhoushiqi/workplace/apr/data/vectors/all_vector_2048.jsonl"):
+def build_model_vec(codebase_path, model_name="/home/zhoushiqi/workplace/model/codet5p-110m-embedding", vecter_path=""):
     # 加载tokenizer
     codebase = utils.read_jsonl(codebase_path)
     vector_ids = utils.read_jsonl(vecter_path)

@@ -8,7 +8,7 @@
 #SBATCH --gres=gpu:8
 
 #SBATCH -c 128
-#SBATCH -w g4007
+
 # conda
 . "/home/zhoushiqi/anaconda3/etc/profile.d/conda.sh"
 # killall -u zhoushiqi

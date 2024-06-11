@@ -24,9 +24,9 @@ def my_function(test_class, path, if_all=False):
     try:
         # 设置subprocess.run()的超时时间为600秒
         if if_all:
-            return subprocess.run(['defects4j', 'test', '-r', '-w', path], capture_output=True, text=True, timeout=120)
+            return subprocess.run(['defects4j', 'test', '-r', '-w', path], capture_output=True, text=True, timeout=240)
         else:
-            return subprocess.run(['defects4j', 'test', '-t', test_class, '-w', path], capture_output=True, text=True, timeout=120)
+            return subprocess.run(['defects4j', 'test', '-t', test_class, '-w', path], capture_output=True, text=True, timeout=240)
     except subprocess.TimeoutExpired:
         raise TimeoutError("Execution timed out")
 version = args.version
@@ -105,6 +105,9 @@ def func(t, progress_bar, thread_id):
                 if repair_code == '':
                     result.append('Generate Failing')
                     continue
+                if repair_code.strip() == ori_code.strip():
+                    result.append("Repetite Failed")
+                    continue
                 repai_java_text = ori_java_text.replace(ori_code, repair_code)
                 # repai_java_text = open(f"{info['local_dir_path']}/fix0.java", encoding="iso-8859-1").read()
                 try:
@@ -121,12 +124,12 @@ def func(t, progress_bar, thread_id):
                     s = my_function(test_class, thread_temp_path)
                     if s.stdout == "Failing tests: 0\n":
                         s = my_function(test_class, thread_temp_path, True)
+                        result.append("other test "+s.stdout)
                         # pass
                     else:
-                        a = 1
+                        result.append("trigger test"+s.stdout)
                         pass
-                    result.append(s.stdout)
-                    if 'Failing tests: 0\n' in result:
+                    if 'other test Failing tests: 0\n' in result:
                         break
                 except:
                     result.append("Time out")

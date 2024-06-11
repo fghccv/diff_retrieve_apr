@@ -2,21 +2,21 @@
 #SBATCH -J minicpm                           # 作业名为 test
 #SBATCH -o /home/zhoushiqi/workplace/apr/src/script/log/evaluate.out                           # 屏幕上的输出文件重定向到 test.out
 #SBATCH -e /home/zhoushiqi/workplace/apr/src/script/log/evaluate.err
-#SBATCH -p gpu4                            # 作业提交的分区为 compute
+#SBATCH -p hit                         # 作业提交的分区为 compute
 #SBATCH -N 1                                  # 作业申请 1 个节点
 #SBATCH -t 200:00:00                            # 任务运行的最长时间为 1 小时                          
 #SBATCH --gres=gpu:8
 #SBATCH --mem 500GB
 #SBATCH -c 128
-#SBATCH -w g4002
+
 # conda
 . "/home/zhoushiqi/anaconda3/etc/profile.d/conda.sh"
 conda activate apr
 model=/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct
-vector_path=/home/zhoushiqi/workplace/apr/data/vectors/all_vector_2048.jsonl
-embedding_model_path=/home/zhoushiqi/workplace/model/codet5p-110m-embedding
+vector_path=/home/zhoushiqi/workplace/apr/data/vectors/all_vector_sroberta.jsonl
+embedding_model_path=/home/zhoushiqi/workplace/model/st-codesearch-distilroberta-base
 work_dir=/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval
-pname=baseline_1.2_buggy_vector_k1
+pname=baseline_1.2_buggy_vector_k1_add_report_sroberta
 datas_path=/home/zhoushiqi/workplace/apr/data/df4_process_data/one_function/1.2.jsonl
 codebase_path=/home/zhoushiqi/workplace/apr/data/megadiff-single-function/process_filtered2048.jsonl
 num_example=1

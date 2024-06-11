@@ -47,14 +47,24 @@ for i, data in tqdm.tqdm(enumerate(datas)):
     erro_func = data['test_func']
     erro_repair = data['erro_repairs'][0]
     buggy_code = erro_repair['src_code'][0]
+    repair_code = erro_repair['fixs'][0]
+    document = erro_repair['docs'][0][0]
+    with open(local_dir_path+'/erro.java') as f:
+        erro_messege = f.read()
+    erro_messege = erro_messege.split('\n')[1]
     prompt = "As an debugger, you should refine the buggy program.\n"
     examples = random.sample(codebase, k=args.num_example)
     for j, example in enumerate(examples):
+        prompt += f"### Example {j+1}\n"
         b, f = example['buggy_function'], example['fixed_function']
         b = b.replace('\t', '    ')
         f = f.replace('\t', '    ')
         prompt += f"### Buggy code:\n```java\n{b}\n```\n"
         prompt += f"### Refined code:\n```java\n{f}\n```\n"
+    prompt += f"### Example {len(examples)+1}\n"
+    prompt += f"### Program document:\n```text\n{document}\n```\n"
+    prompt += f"### Failed test:\n```java\n{erro_func}\n```\n"
+    prompt += f"### Test info:\n```text\n{erro_messege}\n```\n"
     prompt += f"### Buggy code:\n```java\n{buggy_code}\n```\n"
     prompt += "### Refined code:\n"
     messages = [

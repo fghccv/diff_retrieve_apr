@@ -1,4 +1,5 @@
 from transformers import AutoModel, AutoTokenizer
+from sentence_transformers import SentenceTransformer
 import utils
 import os
 import argparse
@@ -23,14 +24,17 @@ gap = len(datasets)//8 + 1
 datasets = datasets[args.gpu_index*gap:(args.gpu_index+1)*gap]
 
 tokenizer = AutoTokenizer.from_pretrained(checkpoint, trust_remote_code=True)
-model = AutoModel.from_pretrained(checkpoint, trust_remote_code=True).to(device)
+# model = AutoModel.from_pretrained(checkpoint, trust_remote_code=True).to(device)
+model = SentenceTransformer(checkpoint).to(device)
 vecs = []
 err = 0
 for data in tqdm.tqdm(datasets):
     inputs = tokenizer.encode(data['diff_context'], return_tensors="pt").to(device)
     if len(inputs[0]) > 512:
+        err += 1
         continue
-    embedding = model(inputs)[0]
+    # embedding = model(inputs)[0]
+    embedding = model.encode(data['diff_context'], convert_to_tensor=True)
     vecs.append({"embedding":embedding.to("cpu").detach().numpy().tolist(), "index":data['index']})
 utils.write_jsonl(args.dest_path, vecs)
 print(err)

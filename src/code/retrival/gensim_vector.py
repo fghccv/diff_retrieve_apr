@@ -5,6 +5,7 @@ import json
 from transformers import AutoTokenizer
 import numpy as np
 from gensim.similarities.docsim import MatrixSimilarity
+from sentence_transformers import SentenceTransformer
 def softmax(x):
     x = np.array(x)
     e_x = np.exp(x)
@@ -16,6 +17,7 @@ class ReVector:
         self.vector_ids = vector_ids
         self.tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True)
         self.model = AutoModel.from_pretrained(model_id, trust_remote_code=True).to(device)
+        # self.model = SentenceTransformer(model_id).to(device)
         self.doc_vectors = [[(i, x) for i, x in enumerate(vec['embedding'])] for vec in vector_ids]
         if index_path != None:
             self.index = MatrixSimilarity.load(index_path)
@@ -30,6 +32,7 @@ class ReVector:
         s = s.replace('\t', '    ')
         inputs = self.tokenizer.encode(s, return_tensors="pt", truncation=True, max_length=2048).to(device)
         embedding = self.model(inputs)[0].to("cpu").detach().numpy().tolist()
+        # embedding = self.model.encode(s, convert_to_tensor=True).to("cpu").detach().numpy().tolist()
         return [(i, x) for i, x in enumerate(embedding)]
     
     
@@ -51,6 +54,6 @@ class ReVector:
 
 if __name__ == '__main__':
     codebase = utils.read_jsonl("/home/zhoushiqi/workplace/apr/data/megadiff-single-function/process_filtered2048.jsonl")
-    vector_ids = utils.read_jsonl("/home/zhoushiqi/workplace/apr/data/vectors/all_vector_2048.jsonl")
-    vector_model = ReVector("/home/zhoushiqi/workplace/model/codet5p-110m-embedding", codebase, vector_ids)
+    vector_ids = utils.read_jsonl("/home/zhoushiqi/workplace/apr/data/vectors/all_vector_sroberta.jsonl")
+    vector_model = ReVector("/home/zhoushiqi/workplace/model/st-codesearch-distilroberta-base", codebase, vector_ids)
     print(vector_model.query(codebase[1]["diff_context"], 1)[0][0]["buggy_function"] == codebase[1]["buggy_function"])
