@@ -48,7 +48,28 @@ def write_jsonl(file_path, datas):
     with open(file_path, 'w') as f:
         for data in datas:
             f.write(json.dumps(data) + '\n')
+def _split_bug_fix(diff):
+    bug = []
+    fix = []
+    for l in diff.split('\n'):
+        if l.startswith('+'):
+            fix.append(l[1:])
+        elif l.startswith('-'):
+            bug.append(l[1:])
+        else:
+            fix.append(l[1:])
+            bug.append(l[1:])
+    return '\n'.join(bug), '\n'.join(fix)
+def split_bug_fix(process_file_path, dest_path):
+    process = read_jsonl(process_file_path)
+    for data in tqdm.tqdm(process):
+        bug, fix = _split_bug_fix(data['diff_context'])
+        data['fl_bug_fix'] = {'bug':bug, 'fix':fix}
+    write_jsonl(dest_path, process)
+    
+        
 if __name__ == '__main__':
-    datasets = load_megadiff_dataset('/home/zhoushiqi/workplace/apr/data/megadiff-single-function/data')
-    process_datasets = process(datasets, 3)
-    write_jsonl("/home/zhoushiqi/workplace/apr/data/megadiff-single-function/process.jsonl", process_datasets)
+    # datasets = load_megadiff_dataset('/home/zhoushiqi/workplace/apr/data/megadiff-single-function/data')
+    # process_datasets = process(datasets, 3)
+    # write_jsonl("/home/zhoushiqi/workplace/apr/data/megadiff-single-function/process.jsonl", process_datasets)
+    split_bug_fix("/home/zhoushiqi/workplace/apr/data/megadiff-single-function/process_filtered2048.jsonl", "/home/zhoushiqi/workplace/apr/data/megadiff-single-function/process_filtered2048_add_fl_bfp.jsonl")

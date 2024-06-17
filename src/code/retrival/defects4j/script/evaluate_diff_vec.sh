@@ -13,17 +13,17 @@
 . "/home/zhoushiqi/anaconda3/etc/profile.d/conda.sh"
 conda activate apr
 model=/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct
-work_dir=/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval
-pname=baseline_1.2_diff_vec_addreport_k1_randomsr_codet5p
+work_dir=/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/vector_exp
+pname=diff_vec_addreport_k1_roud1_random_codet5p
 info_path=/home/zhoushiqi/workplace/apr/data/df4_process_data/one_function/1.2.jsonl
-result_path=/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/baseline_1.2_buggy_vector_k1_add_report_sroberta_N200_T1_result.jsonl
-process_path=/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/baseline_1.2_buggy_vector_k1_add_report_sroberta_N200_T1_process.jsonl
+result_path=/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/baseline_1.2_random_add_report_N200_T1_result.jsonl
+process_path=/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/baseline_1.2_random_add_report_N200_T1_process.jsonl
 codebase_path=/home/zhoushiqi/workplace/apr/data/megadiff-single-function/process_filtered2048.jsonl
 vecter_path=/home/zhoushiqi/workplace/apr/data/vectors/all_vector_2048.jsonl
 num_example=1
 num_ticket=3
-num_voter=100
-N=100
+num_voter=10
+N=10
 num_per_iter=10
 T=1
 uniform_weight=0
@@ -53,4 +53,4 @@ echo process
 python /home/zhoushiqi/workplace/apr/src/code/process.py --data_path $work_dir/$pname.jsonl --dest_path $work_dir/${pname}_process.jsonl
 echo run test
 python /home/zhoushiqi/workplace/apr/src/code/replace_evaluate.py --version 1.7 --infos_path $info_path --process_path $work_dir/${pname}_process.jsonl\
-                                                                    --result_path  $work_dir/${pname}_result.jsonl --temp_name temp2
+                                                                    --result_path  $work_dir/${pname}_result.jsonl --temp_name temp1

@@ -12,9 +12,10 @@
 # conda
 . "/home/zhoushiqi/anaconda3/etc/profile.d/conda.sh"
 conda activate apr
-model=/home/zhoushiqi/workplace/model/st-codesearch-distilroberta-base
-codebase_path=/home/zhoushiqi/workplace/apr/data/megadiff-single-function/process_filtered2048.jsonl
+model=/home/zhoushiqi/workplace/model/codet5p-110m-embedding
+codebase_path=/home/zhoushiqi/workplace/apr/data/tfix/data/train_data_clean_sm.json
 dest_dir=/home/zhoushiqi/workplace/apr/data/vectors
+file_name=tfix_clean_sm_codet5p
 mkdir -p $dest_dir/temp
 index=0
 gpu_num=8
@@ -22,10 +23,9 @@ gpu_num=8
 for ((i = 0; i < $gpu_num; i++)); do
 
   gpu=$((i))
-  echo 'Running process #' ${i} 'from' $start_index 'to' $end_index 'on GPU' ${gpu}
   ((index++))
   (
-    CUDA_VISIBLE_DEVICES=$gpu python /home/zhoushiqi/workplace/apr/src/code/retrival/vector_generate.py --model_id ${model} \
+    CUDA_VISIBLE_DEVICES=$gpu python /home/zhoushiqi/workplace/apr/src/code/retrival/tfix/vector_generate.py --model_id ${model} \
       --gpu_index ${i} \
       --dest_path ${dest_dir}/temp/${i}.jsonl \
       --codebase_path ${codebase_path} 
@@ -33,4 +33,4 @@ for ((i = 0; i < $gpu_num; i++)); do
   if (($index % $gpu_num == 0)); then wait; fi
 done
 echo merge
-python /home/zhoushiqi/workplace/apr/src/code/merge.py --merge_dir $dest_dir/temp --dest_path $dest_dir/all_vector_sroberta.jsonl
+python /home/zhoushiqi/workplace/apr/src/code/merge.py --merge_dir $dest_dir/temp --dest_path $dest_dir/$file_name.jsonl

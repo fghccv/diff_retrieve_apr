@@ -20,12 +20,18 @@ def pre_process_diff(result_path, info_path, process_path, num_voter, context_wi
             avg = []
             for i,r in enumerate(results):
                 if "other" in r:
+                    n = re.findall("Failing tests: (\d+)\n", r)
+                    assert len(n) == 1, r
+                    n = int(n[0])
                     weights.append(1.5)
                 if "Repetite Failed":
                     weights.append(0)
                 if r == "Compile Failing" or r == "trigger test" or r == "Time out":
                     weights.append(0.5)
                 if "trigger testFailing" in r:
+                    n = re.findall("Failing tests: (\d+)\n", r)
+                    assert len(n) == 1, r
+                    n = int(n[0])
                     weights.append(1)
                 # else:
                 #     n = re.findall("Failing tests: (\d+)\n", r)

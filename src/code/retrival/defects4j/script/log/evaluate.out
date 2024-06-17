@@ -1,0 +1,253 @@
+Running process # 0 from to on GPU 0
+Running process # 1 from to on GPU 1
+Running process # 2 from to on GPU 2
+Running process # 3 from to on GPU 3
+Running process # 4 from to on GPU 4
+Running process # 5 from to on GPU 5
+Running process # 6 from to on GPU 6
+Running process # 7 from to on GPU 7
+{'N': 100,
+ 'codebase_path': '/home/zhoushiqi/workplace/apr/data/megadiff-single-function/process_filtered2048.jsonl',
+ 'dest_path': '/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/ticket_exp/diff_vec_addreport_k1_roud1_random_t7_N100_T1/2.jsonl',
+ 'gpu_index': 2,
+ 'info_path': '/home/zhoushiqi/workplace/apr/data/df4_process_data/one_function/1.2.jsonl',
+ 'model_id': '/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct',
+ 'num_example': 1,
+ 'num_gpus': 1,
+ 'num_per_iter': 10,
+ 'num_ticket': 7,
+ 'num_voter': 100,
+ 'process_path': '/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/baseline_1.2_random_add_report_N200_T1_process.jsonl',
+ 'result_path': '/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/baseline_1.2_random_add_report_N200_T1_result.jsonl',
+ 'temperature': 1.0,
+ 'top_p': 0.95,
+ 'uniform_weight': 0,
+ 'vecter_path': '/home/zhoushiqi/workplace/apr/data/vectors/all_vector_2048.jsonl'}
+21
+{'N': 100,
+ 'codebase_path': '/home/zhoushiqi/workplace/apr/data/megadiff-single-function/process_filtered2048.jsonl',
+ 'dest_path': '/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/ticket_exp/diff_vec_addreport_k1_roud1_random_t7_N100_T1/5.jsonl',
+ 'gpu_index': 5,
+ 'info_path': '/home/zhoushiqi/workplace/apr/data/df4_process_data/one_function/1.2.jsonl',
+ 'model_id': '/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct',
+ 'num_example': 1,
+ 'num_gpus': 1,
+ 'num_per_iter': 10,
+ 'num_ticket': 7,
+ 'num_voter': 100,
+ 'process_path': '/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/baseline_1.2_random_add_report_N200_T1_process.jsonl',
+ 'result_path': '/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/baseline_1.2_random_add_report_N200_T1_result.jsonl',
+ 'temperature': 1.0,
+ 'top_p': 0.95,
+ 'uniform_weight': 0,
+ 'vecter_path': '/home/zhoushiqi/workplace/apr/data/vectors/all_vector_2048.jsonl'}
+21
+{'N': 100,
+ 'codebase_path': '/home/zhoushiqi/workplace/apr/data/megadiff-single-function/process_filtered2048.jsonl',
+ 'dest_path': '/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/ticket_exp/diff_vec_addreport_k1_roud1_random_t7_N100_T1/0.jsonl',
+ 'gpu_index': 0,
+ 'info_path': '/home/zhoushiqi/workplace/apr/data/df4_process_data/one_function/1.2.jsonl',
+ 'model_id': '/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct',
+ 'num_example': 1,
+ 'num_gpus': 1,
+ 'num_per_iter': 10,
+ 'num_ticket': 7,
+ 'num_voter': 100,
+ 'process_path': '/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/baseline_1.2_random_add_report_N200_T1_process.jsonl',
+ 'result_path': '/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/baseline_1.2_random_add_report_N200_T1_result.jsonl',
+ 'temperature': 1.0,
+ 'top_p': 0.95,
+ 'uniform_weight': 0,
+ 'vecter_path': '/home/zhoushiqi/workplace/apr/data/vectors/all_vector_2048.jsonl'}
+21
+{'N': 100,
+ 'codebase_path': '/home/zhoushiqi/workplace/apr/data/megadiff-single-function/process_filtered2048.jsonl',
+ 'dest_path': '/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/ticket_exp/diff_vec_addreport_k1_roud1_random_t7_N100_T1/3.jsonl',
+ 'gpu_index': 3,
+ 'info_path': '/home/zhoushiqi/workplace/apr/data/df4_process_data/one_function/1.2.jsonl',
+ 'model_id': '/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct',
+ 'num_example': 1,
+ 'num_gpus': 1,
+ 'num_per_iter': 10,
+ 'num_ticket': 7,
+ 'num_voter': 100,
+ 'process_path': '/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/baseline_1.2_random_add_report_N200_T1_process.jsonl',
+ 'result_path': '/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/baseline_1.2_random_add_report_N200_T1_result.jsonl',
+ 'temperature': 1.0,
+ 'top_p': 0.95,
+ 'uniform_weight': 0,
+ 'vecter_path': '/home/zhoushiqi/workplace/apr/data/vectors/all_vector_2048.jsonl'}
+21
+{'N': 100,
+ 'codebase_path': '/home/zhoushiqi/workplace/apr/data/megadiff-single-function/process_filtered2048.jsonl',
+ 'dest_path': '/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/ticket_exp/diff_vec_addreport_k1_roud1_random_t7_N100_T1/7.jsonl',
+ 'gpu_index': 7,
+ 'info_path': '/home/zhoushiqi/workplace/apr/data/df4_process_data/one_function/1.2.jsonl',
+ 'model_id': '/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct',
+ 'num_example': 1,
+ 'num_gpus': 1,
+ 'num_per_iter': 10,
+ 'num_ticket': 7,
+ 'num_voter': 100,
+ 'process_path': '/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/baseline_1.2_random_add_report_N200_T1_process.jsonl',
+ 'result_path': '/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/baseline_1.2_random_add_report_N200_T1_result.jsonl',
+ 'temperature': 1.0,
+ 'top_p': 0.95,
+ 'uniform_weight': 0,
+ 'vecter_path': '/home/zhoushiqi/workplace/apr/data/vectors/all_vector_2048.jsonl'}
+14
+{'N': 100,
+ 'codebase_path': '/home/zhoushiqi/workplace/apr/data/megadiff-single-function/process_filtered2048.jsonl',
+ 'dest_path': '/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/ticket_exp/diff_vec_addreport_k1_roud1_random_t7_N100_T1/6.jsonl',
+ 'gpu_index': 6,
+ 'info_path': '/home/zhoushiqi/workplace/apr/data/df4_process_data/one_function/1.2.jsonl',
+ 'model_id': '/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct',
+ 'num_example': 1,
+ 'num_gpus': 1,
+ 'num_per_iter': 10,
+ 'num_ticket': 7,
+ 'num_voter': 100,
+ 'process_path': '/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/baseline_1.2_random_add_report_N200_T1_process.jsonl',
+ 'result_path': '/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/baseline_1.2_random_add_report_N200_T1_result.jsonl',
+ 'temperature': 1.0,
+ 'top_p': 0.95,
+ 'uniform_weight': 0,
+ 'vecter_path': '/home/zhoushiqi/workplace/apr/data/vectors/all_vector_2048.jsonl'}
+21
+{'N': 100,
+ 'codebase_path': '/home/zhoushiqi/workplace/apr/data/megadiff-single-function/process_filtered2048.jsonl',
+ 'dest_path': '/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/ticket_exp/diff_vec_addreport_k1_roud1_random_t7_N100_T1/1.jsonl',
+ 'gpu_index': 1,
+ 'info_path': '/home/zhoushiqi/workplace/apr/data/df4_process_data/one_function/1.2.jsonl',
+ 'model_id': '/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct',
+ 'num_example': 1,
+ 'num_gpus': 1,
+ 'num_per_iter': 10,
+ 'num_ticket': 7,
+ 'num_voter': 100,
+ 'process_path': '/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/baseline_1.2_random_add_report_N200_T1_process.jsonl',
+ 'result_path': '/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/baseline_1.2_random_add_report_N200_T1_result.jsonl',
+ 'temperature': 1.0,
+ 'top_p': 0.95,
+ 'uniform_weight': 0,
+ 'vecter_path': '/home/zhoushiqi/workplace/apr/data/vectors/all_vector_2048.jsonl'}
+21
+{'N': 100,
+ 'codebase_path': '/home/zhoushiqi/workplace/apr/data/megadiff-single-function/process_filtered2048.jsonl',
+ 'dest_path': '/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/ticket_exp/diff_vec_addreport_k1_roud1_random_t7_N100_T1/4.jsonl',
+ 'gpu_index': 4,
+ 'info_path': '/home/zhoushiqi/workplace/apr/data/df4_process_data/one_function/1.2.jsonl',
+ 'model_id': '/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct',
+ 'num_example': 1,
+ 'num_gpus': 1,
+ 'num_per_iter': 10,
+ 'num_ticket': 7,
+ 'num_voter': 100,
+ 'process_path': '/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/baseline_1.2_random_add_report_N200_T1_process.jsonl',
+ 'result_path': '/home/zhoushiqi/workplace/apr/data/evaluate_results/deepseek/retrieval/baseline_1.2_random_add_report_N200_T1_result.jsonl',
+ 'temperature': 1.0,
+ 'top_p': 0.95,
+ 'uniform_weight': 0,
+ 'vecter_path': '/home/zhoushiqi/workplace/apr/data/vectors/all_vector_2048.jsonl'}
+21
+INFO 06-12 09:01:05 llm_engine.py:98] Initializing an LLM engine (v0.4.1) with config: model='/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct', speculative_config=None, tokenizer='/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=65536, download_dir=None, load_format=auto, tensor_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, quantization_param_path=None, device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='outlines'), seed=42)
+INFO 06-12 09:01:05 utils.py:608] Found nccl from library /home/zhoushiqi/.config/vllm/nccl/cu12/libnccl.so.2.18.1
+INFO 06-12 09:01:07 selector.py:77] Cannot use FlashAttention backend because the flash_attn package is not found. Please install it for better performance.
+INFO 06-12 09:01:07 selector.py:33] Using XFormers backend.
+INFO 06-12 09:01:34 model_runner.py:173] Loading model weights took 12.5708 GB
+INFO 06-12 09:01:46 gpu_executor.py:119] # GPU blocks: 6675, # CPU blocks: 512
+INFO 06-12 09:01:50 model_runner.py:976] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 06-12 09:01:50 model_runner.py:980] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode. You can also reduce the `max_num_seqs` as needed to decrease memory usage.
+INFO 06-12 09:02:45 llm_engine.py:98] Initializing an LLM engine (v0.4.1) with config: model='/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct', speculative_config=None, tokenizer='/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=65536, download_dir=None, load_format=auto, tensor_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, quantization_param_path=None, device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='outlines'), seed=42)
+INFO 06-12 09:02:46 utils.py:608] Found nccl from library /home/zhoushiqi/.config/vllm/nccl/cu12/libnccl.so.2.18.1
+INFO 06-12 09:02:46 selector.py:77] Cannot use FlashAttention backend because the flash_attn package is not found. Please install it for better performance.
+INFO 06-12 09:02:46 selector.py:33] Using XFormers backend.
+INFO 06-12 09:02:52 llm_engine.py:98] Initializing an LLM engine (v0.4.1) with config: model='/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct', speculative_config=None, tokenizer='/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=65536, download_dir=None, load_format=auto, tensor_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, quantization_param_path=None, device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='outlines'), seed=42)
+INFO 06-12 09:02:52 utils.py:608] Found nccl from library /home/zhoushiqi/.config/vllm/nccl/cu12/libnccl.so.2.18.1
+INFO 06-12 09:02:52 selector.py:77] Cannot use FlashAttention backend because the flash_attn package is not found. Please install it for better performance.
+INFO 06-12 09:02:52 selector.py:33] Using XFormers backend.
+INFO 06-12 09:02:59 llm_engine.py:98] Initializing an LLM engine (v0.4.1) with config: model='/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct', speculative_config=None, tokenizer='/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=65536, download_dir=None, load_format=auto, tensor_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, quantization_param_path=None, device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='outlines'), seed=42)
+INFO 06-12 09:02:59 utils.py:608] Found nccl from library /home/zhoushiqi/.config/vllm/nccl/cu12/libnccl.so.2.18.1
+INFO 06-12 09:02:59 selector.py:77] Cannot use FlashAttention backend because the flash_attn package is not found. Please install it for better performance.
+INFO 06-12 09:02:59 selector.py:33] Using XFormers backend.
+INFO 06-12 09:02:59 llm_engine.py:98] Initializing an LLM engine (v0.4.1) with config: model='/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct', speculative_config=None, tokenizer='/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=65536, download_dir=None, load_format=auto, tensor_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, quantization_param_path=None, device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='outlines'), seed=42)
+INFO 06-12 09:02:59 utils.py:608] Found nccl from library /home/zhoushiqi/.config/vllm/nccl/cu12/libnccl.so.2.18.1
+INFO 06-12 09:03:00 selector.py:77] Cannot use FlashAttention backend because the flash_attn package is not found. Please install it for better performance.
+INFO 06-12 09:03:00 selector.py:33] Using XFormers backend.
+INFO 06-12 09:03:01 llm_engine.py:98] Initializing an LLM engine (v0.4.1) with config: model='/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct', speculative_config=None, tokenizer='/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=65536, download_dir=None, load_format=auto, tensor_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, quantization_param_path=None, device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='outlines'), seed=42)
+INFO 06-12 09:03:01 utils.py:608] Found nccl from library /home/zhoushiqi/.config/vllm/nccl/cu12/libnccl.so.2.18.1
+INFO 06-12 09:03:01 selector.py:77] Cannot use FlashAttention backend because the flash_attn package is not found. Please install it for better performance.
+INFO 06-12 09:03:01 selector.py:33] Using XFormers backend.
+INFO 06-12 09:03:03 model_runner.py:173] Loading model weights took 12.5708 GB
+INFO 06-12 09:03:07 model_runner.py:173] Loading model weights took 12.5708 GB
+INFO 06-12 09:03:09 llm_engine.py:98] Initializing an LLM engine (v0.4.1) with config: model='/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct', speculative_config=None, tokenizer='/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=65536, download_dir=None, load_format=auto, tensor_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, quantization_param_path=None, device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='outlines'), seed=42)
+INFO 06-12 09:03:09 utils.py:608] Found nccl from library /home/zhoushiqi/.config/vllm/nccl/cu12/libnccl.so.2.18.1
+INFO 06-12 09:03:09 selector.py:77] Cannot use FlashAttention backend because the flash_attn package is not found. Please install it for better performance.
+INFO 06-12 09:03:09 selector.py:33] Using XFormers backend.
+INFO 06-12 09:03:10 gpu_executor.py:119] # GPU blocks: 6675, # CPU blocks: 512
+INFO 06-12 09:03:11 llm_engine.py:98] Initializing an LLM engine (v0.4.1) with config: model='/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct', speculative_config=None, tokenizer='/home/zhoushiqi/workplace/model/deepseek-coder-6.7b-instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=65536, download_dir=None, load_format=auto, tensor_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, quantization_param_path=None, device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='outlines'), seed=42)
+INFO 06-12 09:03:11 model_runner.py:173] Loading model weights took 12.5708 GB
+INFO 06-12 09:03:11 utils.py:608] Found nccl from library /home/zhoushiqi/.config/vllm/nccl/cu12/libnccl.so.2.18.1
+INFO 06-12 09:03:11 model_runner.py:976] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 06-12 09:03:11 model_runner.py:980] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode. You can also reduce the `max_num_seqs` as needed to decrease memory usage.
+INFO 06-12 09:03:11 selector.py:77] Cannot use FlashAttention backend because the flash_attn package is not found. Please install it for better performance.
+INFO 06-12 09:03:11 selector.py:33] Using XFormers backend.
+INFO 06-12 09:03:13 model_runner.py:173] Loading model weights took 12.5708 GB
+INFO 06-12 09:03:14 gpu_executor.py:119] # GPU blocks: 6675, # CPU blocks: 512
+INFO 06-12 09:03:14 model_runner.py:173] Loading model weights took 12.5708 GB
+INFO 06-12 09:03:15 model_runner.py:976] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 06-12 09:03:15 model_runner.py:980] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode. You can also reduce the `max_num_seqs` as needed to decrease memory usage.
+INFO 06-12 09:03:16 gpu_executor.py:119] # GPU blocks: 6675, # CPU blocks: 512
+INFO 06-12 09:03:18 model_runner.py:976] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 06-12 09:03:18 model_runner.py:980] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode. You can also reduce the `max_num_seqs` as needed to decrease memory usage.
+INFO 06-12 09:03:18 model_runner.py:173] Loading model weights took 12.5708 GB
+INFO 06-12 09:03:19 gpu_executor.py:119] # GPU blocks: 6675, # CPU blocks: 512
+INFO 06-12 09:03:20 model_runner.py:173] Loading model weights took 12.5708 GB
+INFO 06-12 09:03:20 model_runner.py:976] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 06-12 09:03:20 model_runner.py:980] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode. You can also reduce the `max_num_seqs` as needed to decrease memory usage.
+INFO 06-12 09:03:20 gpu_executor.py:119] # GPU blocks: 6675, # CPU blocks: 512
+INFO 06-12 09:03:21 model_runner.py:976] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 06-12 09:03:21 model_runner.py:980] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode. You can also reduce the `max_num_seqs` as needed to decrease memory usage.
+INFO 06-12 09:03:24 gpu_executor.py:119] # GPU blocks: 6675, # CPU blocks: 512
+INFO 06-12 09:03:25 model_runner.py:976] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 06-12 09:03:25 model_runner.py:980] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode. You can also reduce the `max_num_seqs` as needed to decrease memory usage.
+INFO 06-12 09:03:25 gpu_executor.py:119] # GPU blocks: 6675, # CPU blocks: 512
+INFO 06-12 09:03:27 model_runner.py:976] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 06-12 09:03:27 model_runner.py:980] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode. You can also reduce the `max_num_seqs` as needed to decrease memory usage.
+INFO 06-12 09:03:39 model_runner.py:1057] Graph capturing finished in 108 secs.
+INFO 06-12 09:04:12 model_runner.py:1057] Graph capturing finished in 61 secs.
+INFO 06-12 09:04:15 model_runner.py:1057] Graph capturing finished in 58 secs.
+INFO 06-12 09:04:17 model_runner.py:1057] Graph capturing finished in 63 secs.
+INFO 06-12 09:04:21 model_runner.py:1057] Graph capturing finished in 60 secs.
+INFO 06-12 09:04:23 model_runner.py:1057] Graph capturing finished in 61 secs.
+INFO 06-12 09:04:24 model_runner.py:1057] Graph capturing finished in 59 secs.
+INFO 06-12 09:04:26 model_runner.py:1057] Graph capturing finished in 60 secs.
+0
+0
+0
+0
+0
+0
+0
+0
+merge
+161
+process
+283
+run test
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /home/zhoushiqi/workplace/apr/df4/defects4j-1.2.0/framework
+      Base dir: /home/zhoushiqi/workplace/apr/df4/defects4j-1.2.0
+    Major root: /home/zhoushiqi/workplace/apr/df4/defects4j-1.2.0/major
+      Repo dir: /home/zhoushiqi/workplace/apr/df4/defects4j-1.2.0/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /home/zhoushiqi/workplace/apr/df4/defects4j-1.2.0/framework/projects/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /home/zhoushiqi/workplace/apr/df4/defects4j-1.2.0/project_repos/commons-lang.git
+     Commit db: /home/zhoushiqi/workplace/apr/df4/defects4j-1.2.0/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
